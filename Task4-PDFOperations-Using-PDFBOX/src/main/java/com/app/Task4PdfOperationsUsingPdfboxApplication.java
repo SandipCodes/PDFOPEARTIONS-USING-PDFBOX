@@ -95,7 +95,7 @@ public class Task4PdfOperationsUsingPdfboxApplication {
 			
 			System.out.println("Your file is created in:"+ System.getProperty("user.dir"));
 			
-			//savePdfAsImage
+			/*//savePdfAsImage
 			service.savePdfAsImage(document);
 			document.close();
 			
@@ -113,7 +113,9 @@ public class Task4PdfOperationsUsingPdfboxApplication {
 			System.out.println("Added rectangle successfully. See file at"+ System.getProperty("user.dir"));
 		
 			//encrypting doc
-			service.encryptPdf();
+			service.encryptPdf();*/
+			
+			service.getTextOfPdf();
 			
 		}
 		catch (IOException ie) {

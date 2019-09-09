@@ -20,6 +20,7 @@ public interface EmployeeService {
 	public void splitPdf();
 	
 	public void addRectangle();
-	
 	public void encryptPdf();
+ 
+	public void getTextOfPdf();
 }

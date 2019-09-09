@@ -18,6 +18,7 @@ import org.apache.pdfbox.pdmodel.encryption.AccessPermission;
 import org.apache.pdfbox.pdmodel.encryption.InvalidPasswordException;
 import org.apache.pdfbox.pdmodel.encryption.StandardProtectionPolicy;
 import org.apache.pdfbox.rendering.PDFRenderer;
+import org.apache.pdfbox.text.PDFTextStripper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -220,7 +221,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 		
 		File file1=null;
 		PDDocument document=null;
-		PDPageContentStream content=null;
+		
 		AccessPermission ap=null;
 		StandardProtectionPolicy spp=null;
 		//load existing pdf file
@@ -266,4 +267,48 @@ public class EmployeeServiceImpl implements EmployeeService {
 		}//finally
 	}//method
 
+	@Override
+	public void getTextOfPdf() {
+	
+		File file1=null;
+		PDDocument document=null;
+	
+		PDFTextStripper stripper=null;
+		String text=null;
+		//load existing pdf file
+		file1=new File("E:\\UPSC\\mpscht.pdf");
+		
+		try {
+		     document=PDDocument.load(file1);
+		     
+		     //instantiating PDFTextStripper obj
+		     stripper=new PDFTextStripper();
+		     
+		     //getting text from pdf
+		     text=stripper.getText(document);
+		     
+		     System.out.println(text);
+	
+	   }
+		catch(IOException ie) {
+			ie.printStackTrace();
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			
+			if(document !=null) {
+				
+				try {
+					document.close();
+				}
+				catch(IOException ie) {
+					ie.printStackTrace();
+				}
+			}
+		}//finally
+	
+	}//getTextOfPdf()
+		
 }//EmployeeServiceImpl class
