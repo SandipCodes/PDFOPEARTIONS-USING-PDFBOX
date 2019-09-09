@@ -3,11 +3,13 @@ package com.app.service.impl;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.imageio.ImageIO;
 
 import org.apache.pdfbox.multipdf.PDFMergerUtility;
+import org.apache.pdfbox.multipdf.Splitter;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.encryption.InvalidPasswordException;
 import org.apache.pdfbox.rendering.PDFRenderer;
@@ -132,5 +134,40 @@ public class EmployeeServiceImpl implements EmployeeService {
 	   }//finally
 		
 	}//method
+
+	@Override
+	public void splitPdf() {
+		
+		File file1=null;
+		PDDocument document=null;
+		Splitter splitter=null;
+		file1=new File("E:\\UPSC\\mpscht.pdf");
+		List<PDDocument> pages=null;
+		try {
+			document=PDDocument.load(file1);
+			
+			//intantiate the Splitter obj
+			splitter=new Splitter();
+			
+			//splitting doc
+			pages=splitter.split(document);
+			
+			//creating iterator
+			Iterator<PDDocument> iterator=pages.listIterator();
+			
+			//saving every page as separate doc
+			
+			int i=1;
+			
+			while(iterator.hasNext()) {
+				PDDocument pd=iterator.next();
+				pd.save("splitted file"+ (i++) + ".pdf");
+			}
+		}
+		catch(IOException ie) {
+			ie.printStackTrace();
+		}
+		
+	}
 
 }//EmployeeServiceImpl class

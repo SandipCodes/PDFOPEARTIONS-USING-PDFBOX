@@ -17,5 +17,6 @@ public interface EmployeeService {
 	
 	public void savePdfAsImage(PDDocument document);
 	public void mergeTwoPdfs();
+	public void splitPdf();
 	
 }

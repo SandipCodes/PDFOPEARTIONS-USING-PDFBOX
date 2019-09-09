@@ -101,7 +101,12 @@ public class Task4PdfOperationsUsingPdfboxApplication {
 			
 			//merge two pdf files
 			service.mergeTwoPdfs();
-			System.out.println("Files are merged successfully.");
+			System.out.println("Files merged successfully in."+ System.getProperty("user.dir"));
+		
+			
+			//split pdf doc
+			service.splitPdf();
+			System.out.println("Files Splitted successfully."+ System.getProperty("user.dir"));
 			
 			
 		}
