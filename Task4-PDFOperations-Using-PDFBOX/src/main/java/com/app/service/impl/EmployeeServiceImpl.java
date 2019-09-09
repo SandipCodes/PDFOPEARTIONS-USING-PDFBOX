@@ -1,5 +1,6 @@
 package com.app.service.impl;
 
+import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -11,6 +12,8 @@ import javax.imageio.ImageIO;
 import org.apache.pdfbox.multipdf.PDFMergerUtility;
 import org.apache.pdfbox.multipdf.Splitter;
 import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.pdmodel.PDPage;
+import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.encryption.InvalidPasswordException;
 import org.apache.pdfbox.rendering.PDFRenderer;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -169,5 +172,45 @@ public class EmployeeServiceImpl implements EmployeeService {
 		}
 		
 	}
+
+	@Override
+	public void addRectangle() {
+		
+		File file1=null;
+		PDDocument document=null;
+		PDPageContentStream content=null;
+		//load existing pdf file
+		file1=new File("E:\\UPSC\\mpscht.pdf");
+		
+		try {
+		     document=PDDocument.load(file1);
+		 	   //get page
+				PDPage page=document.getPage(0);
+			 
+		     //instantiating pdpage content stream
+		     content=new PDPageContentStream(document, page);
+		     
+		     //setting a non stroking color
+		     
+		     content.setNonStrokingColor(Color.GREEN);
+		     
+		     //drwa rect
+		     content.addRect(200, 650, 100, 100);
+		     content.fill();
+		
+		     //closing the content stream
+		     content.close();
+		     //saving the doc
+		     document.save(new File("rectangle.pdf"));
+		     //closing the doc
+		     document.close();
+		     
+		     
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+	
+	}//addRectangle()
 
 }//EmployeeServiceImpl class

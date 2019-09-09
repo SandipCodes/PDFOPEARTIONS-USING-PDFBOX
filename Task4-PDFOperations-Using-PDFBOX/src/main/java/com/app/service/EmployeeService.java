@@ -19,4 +19,5 @@ public interface EmployeeService {
 	public void mergeTwoPdfs();
 	public void splitPdf();
 	
+	public void addRectangle();
 }

@@ -107,6 +107,11 @@ public class Task4PdfOperationsUsingPdfboxApplication {
 			//split pdf doc
 			service.splitPdf();
 			System.out.println("Files Splitted successfully."+ System.getProperty("user.dir"));
+		
+			//adding rectangle
+			service.addRectangle();
+			System.out.println("Added rectangle successfully. See file at"+ System.getProperty("user.dir"));
+		
 			
 			
 		}
