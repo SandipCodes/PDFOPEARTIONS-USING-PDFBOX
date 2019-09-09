@@ -1,12 +1,14 @@
 package com.app;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
-import org.apache.pdfbox.pdmodel.font.PDFont;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
+import org.apache.pdfbox.pdmodel.graphics.PDXObject;
+import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
@@ -76,12 +78,30 @@ public class Task4PdfOperationsUsingPdfboxApplication {
 			contentStream.drawString("Permanant Address:");
 			contentStream.endText();
 			
+			contentStream.beginText();
+			contentStream.moveTextPositionByAmount(100, 570);
+			contentStream.drawString("------------------------------------------------------------------");
+			contentStream.endText();
+		
+			//adding image to pdf document
+			PDImageXObject imageXObject=PDImageXObject.createFromFile("dimple.jpg", document);
+			contentStream.drawImage(imageXObject, 100, 200);
+
+			
 			contentStream.close();
+		
 			
 			document.save(fileName);
-			document.close();
 			
 			System.out.println("Your file is created in:"+ System.getProperty("user.dir"));
+			
+			//savePdfAsImage
+			service.savePdfAsImage(document);
+			document.close();
+			
+			//merge two pdf files
+			service.mergeTwoPdfs();
+			System.out.println("Files are merged successfully.");
 			
 			
 		}

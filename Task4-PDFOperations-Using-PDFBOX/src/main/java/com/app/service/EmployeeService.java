@@ -2,6 +2,8 @@ package com.app.service;
 
 import java.util.List;
 
+import org.apache.pdfbox.pdmodel.PDDocument;
+
 import com.app.model.Employee;
 
 public interface EmployeeService {
@@ -13,5 +15,7 @@ public interface EmployeeService {
 	
 	public List<Employee> getAllEmployees();
 	
+	public void savePdfAsImage(PDDocument document);
+	public void mergeTwoPdfs();
 	
 }
