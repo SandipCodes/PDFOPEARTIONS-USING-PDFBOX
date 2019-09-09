@@ -5,11 +5,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Proxy;
+
 import lombok.Data;
 
 @Entity
 @Table(name="emp_tab")
-
+@Proxy(lazy=false)
 @Data
 public class Employee {
 
