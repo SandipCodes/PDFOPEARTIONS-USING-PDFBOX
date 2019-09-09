@@ -112,7 +112,8 @@ public class Task4PdfOperationsUsingPdfboxApplication {
 			service.addRectangle();
 			System.out.println("Added rectangle successfully. See file at"+ System.getProperty("user.dir"));
 		
-			
+			//encrypting doc
+			service.encryptPdf();
 			
 		}
 		catch (IOException ie) {

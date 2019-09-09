@@ -14,7 +14,9 @@ import org.apache.pdfbox.multipdf.Splitter;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
+import org.apache.pdfbox.pdmodel.encryption.AccessPermission;
 import org.apache.pdfbox.pdmodel.encryption.InvalidPasswordException;
+import org.apache.pdfbox.pdmodel.encryption.StandardProtectionPolicy;
 import org.apache.pdfbox.rendering.PDFRenderer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -212,5 +214,56 @@ public class EmployeeServiceImpl implements EmployeeService {
 		
 	
 	}//addRectangle()
+
+	@Override
+	public void encryptPdf() {
+		
+		File file1=null;
+		PDDocument document=null;
+		PDPageContentStream content=null;
+		AccessPermission ap=null;
+		StandardProtectionPolicy spp=null;
+		//load existing pdf file
+		file1=new File("E:\\UPSC\\mpscht.pdf");
+		
+		try {
+		     document=PDDocument.load(file1);
+		 	   
+		     //create access permission object
+		     ap=new AccessPermission();
+		     
+		     //create standard protection object
+		     spp=new StandardProtectionPolicy("1234", "5678", ap);
+		     
+		     //setting the lenth of the protection key
+		     spp.setEncryptionKeyLength(128);
+		     
+		     //setting the access permission
+		     spp.setPermissions(ap);
+		  
+		     //protecting the doc
+		     document.protect(spp);
+		     
+		     System.out.println("Document encrypted successfully");
+		     
+		     //saving the doc
+		     document.save(new File("protected.pdf"));
+		}
+		catch(IOException ie) {
+			ie.printStackTrace();
+		}
+		finally {
+			
+			if(document !=null) {
+				
+				try {
+					document.close();
+				}
+				catch(IOException ie) {
+					ie.printStackTrace();
+				}
+			}
+		}//finally
+	}//method
 
 }//EmployeeServiceImpl class
